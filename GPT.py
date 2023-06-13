@@ -8,7 +8,7 @@ scale = 1
 block_size = 8 * scale #length of context before character prediction
 batch_size = 4 * scale #number of examples simultaneously processed
 embed_dim = 32 * scale #embedding dimension
-dropout = 0.2 #probability of a neuron dropping out
+dropout = 0.4 #probability of a neuron dropping out
 num_head = 4 * scale
 num_blocks = 4 * scale
 learning_rate = 3e-4
@@ -17,14 +17,18 @@ eval_epochs = 200
 
 #### Process text
 
-#read in the file
+#read in the files
 f = open('phg.txt', 'r', encoding='UTF-8')
 text = f.read()
+f.close()
+f = open('logic.txt', 'r', encoding='UTF-8')
+text = text+f.read()
 f.close()
 
 #make the vocabulary
 vocab = sorted(list(set(text)))
 vocab_size = len(vocab)
+print(len(text))
 
 #make the encoding and decoding (text to number, number to text)
 encoder = {ch:i for i, ch in enumerate(vocab)}
